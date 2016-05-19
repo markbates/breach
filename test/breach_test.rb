@@ -1,11 +1,9 @@
 require 'test_helper'
 
-class BreachTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Breach::VERSION
+describe Breach do
+
+  it "does something" do
+    true.must_equal false
   end
 
-  def test_it_does_something_useful
-    assert false
-  end
 end
