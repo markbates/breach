@@ -6,6 +6,7 @@ require "breach/interface"
 require "breach/implements"
 require "breach/implementation_manager"
 require "breach/wrap"
+require "breach/type_check"
 
 tracer = TracePoint.new(:end) do |tp|
   impls = Breach::ImplementationManager.get(tp.self)

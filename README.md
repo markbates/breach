@@ -12,7 +12,7 @@ You can use breach for simple input type-checking:
 def print_a_string_three_times(str)
   puts str * 3
 end
-type_check :print_a_string_three_times, String
+type_check :print_a_string_three_times, inputs: [String]
 
 print_a_string_three_times(DateTime.new) # raises Breach::InputTypeCheckFailed
 ```
