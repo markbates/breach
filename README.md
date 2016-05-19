@@ -2,7 +2,6 @@
 
 breach provides completely-optional method type checking, including support for interfaces, in Ruby, using concise and expressive syntax, allowing you to bring design-by-contract principles to Ruby.
 
-
 ## breach is currently under early development and as such, everything in this doc is aspirational, until it isn't.
 
 ## Usage
@@ -15,10 +14,10 @@ def print_a_string_three_times(str)
 end
 type_check :print_a_string_three_times, String
 
-print_a_string_three_times(DateTime.new) # raises Breach::TypeCheckFailed
+print_a_string_three_times(DateTime.new) # raises Breach::InputTypeCheckFailed
 ```
 
-So, breach automatically will wrap the `print_a_string_three_times` method and, prior to executing it, check the input to make sure it's a `String`. If not, you'll get a `Breach::TypeCheckFailed` exception raised right then and there, instead of running into a much more opaque and potentially misleading error later on.
+So, breach automatically will wrap the `print_a_string_three_times` method and, prior to executing it, check the input to make sure it's a `String`. If not, you'll get a `Breach::InputTypeCheckFailed` exception raised right then and there, instead of running into a much more opaque and potentially misleading error later on.
 
 breach really shines when you want to implement interfaces/abstract classes:
 
@@ -40,7 +39,7 @@ end
 
 mw = MyWriter.new
 mw.write("Bingo bongo") # works
-mw.write(3) # raises Breach::TypeCheckFailed
+mw.write(3) # raises Breach::InputTypeCheckFailed
 ```
 
 When used with interfaces, breach will also catch return type errors before they propagate out into the rest of your application, providing you a much more useful exception:
@@ -62,7 +61,7 @@ class MyWriter
 end
 
 mw = MyWriter.new
-mw.write("Any string") # raises Breach::TypeCheckFailed
+mw.write("Any string") # raises Breach::ReturnTypeCheckFailed
 ```
 
 If you need to support multiple potential classes of input (or return types), use an array:
@@ -84,7 +83,7 @@ end
 mw = MyWriter.new
 mw.write("Hi there", {foo: "bar"}) # works
 mw.write("Interfaces are cool!", nil) # works
-mw.write("A bridge too far!", DateTime.new) # raises Breach::TypeCheckFailed
+mw.write("A bridge too far!", DateTime.new) # raises Breach::InputTypeCheckFailed
 ```
 
 * todo: optional args
