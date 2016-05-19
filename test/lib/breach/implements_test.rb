@@ -9,6 +9,8 @@ describe "implements" do
     end
     class MyWriter
       implements Writer
+      def write
+      end
     end
     is = MyWriter.instance_variable_get("@__implements__")
     is.must_include Writer

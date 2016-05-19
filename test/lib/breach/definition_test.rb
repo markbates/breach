@@ -33,5 +33,29 @@ describe Breach::Definition do
 
   end
 
+  describe "#to_s" do
+
+    it "prints out a nice version of the definition" do
+      d = Breach::Definition.new("write", inputs: [String, Hash], returns: [Numeric])
+      d.to_s.must_equal("write(String, Hash) #=> Numeric")
+    end
+
+    it "ignores returns values if empty" do
+      d = Breach::Definition.new("write", inputs: [String, Hash])
+      d.to_s.must_equal("write(String, Hash)")
+    end
+
+    it "ignores input values if empty" do
+      d = Breach::Definition.new("write")
+      d.to_s.must_equal("write()")
+    end
+
+    it "handles array arguments" do
+      d = Breach::Definition.new("write", inputs: [String, [Hash, nil]], returns: [Numeric, String])
+      d.to_s.must_equal("write(String, Hash|nil) #=> Numeric, String")
+    end
+
+  end
+
 end
 
