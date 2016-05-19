@@ -58,4 +58,56 @@ describe "wrap" do
     MyWriter.new.write("hello", {}).must_equal "HELLO"
   end
 
+  it "validates return parameters" do
+    class Writer
+      extend Breach::Interface
+
+      defines :write, inputs: [String], returns: [String]
+    end
+    class GoodWriter
+      implements Writer
+
+      def write(s)
+        return s.upcase
+      end
+    end
+    GoodWriter.new.write("hello").must_equal "HELLO"
+
+    class BadWriter
+      implements Writer
+
+      def write(s)
+        return 1
+      end
+    end
+    ->{BadWriter.new.write("hello")}.must_raise Breach::ReturnTypeCheckFailed
+  end
+
+  it "validates multiple return values" do
+    class Writer
+      extend Breach::Interface
+      defines :write, inputs: [String], returns: [String, Numeric]
+    end
+    class GoodWriter
+      implements Writer
+
+      def write(s)
+        return s.upcase, s.length
+      end
+    end
+    s, i = GoodWriter.new.write("hello")
+    s.must_equal "HELLO"
+    i.must_equal 5
+
+    class BadWriter
+      implements Writer
+
+      def write(s)
+        return s, true
+      end
+    end
+
+    ->{BadWriter.new.write("hello")}.must_raise Breach::ReturnTypeCheckFailed
+  end
+
 end

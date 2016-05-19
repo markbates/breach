@@ -13,6 +13,14 @@ module Breach
       self.input_arity.include?(m.arity)
     end
 
+    def validate_inputs(args)
+      validate(self.inputs, args, Breach::InputTypeCheckFailed)
+    end
+
+    def validate_returns(args)
+      validate(self.returns, [args].flatten, Breach::ReturnTypeCheckFailed)
+    end
+
     def to_s
       s = "#{self.name}("
       if self.inputs.length > 0
@@ -26,6 +34,28 @@ module Breach
     end
 
     private
+    def validate(allowed, args, ex)
+      allowed.each_with_index do |allow, i|
+        arg = args[i]
+        if allow.is_a?(Array)
+          # handle various types here
+          # handle nil's:
+          if arg == nil && allow.include?(nil)
+            next
+          end
+          # check that the argument is one of the approved classes:
+          unless allow.include?(arg.class)
+            raise ex.new
+          end
+          # TODO: check that the argument is an interface
+        else
+          unless arg.is_a?(allow)
+            raise ex.new
+          end
+        end
+      end
+    end
+
     def build_arity
       l = self.inputs.length
       self.input_arity = (( self.inputs - [ :optional ] ).length..l)

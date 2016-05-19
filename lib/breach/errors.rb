@@ -14,4 +14,8 @@ module Breach
 
   end
 
+  class ReturnTypeCheckFailed < TypeCheckedFailed
+
+  end
+
 end
