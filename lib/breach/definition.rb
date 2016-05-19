@@ -6,9 +6,15 @@ module Breach
       self.name = name
       self.inputs = options[:inputs] || []
       self.returns = options[:returns] || []
+      build_arity
+    end
 
-      self.input_arity = self.inputs.length
-      self.return_arity = self.returns.length
+    private
+    def build_arity
+      l = self.inputs.length
+      self.input_arity = (( self.inputs - [ :optional ] ).length...l)
+      l = self.returns.length
+      self.return_arity = (( self.returns - [ :optional ] ).length...l)
     end
 
   end
