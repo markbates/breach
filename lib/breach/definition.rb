@@ -9,12 +9,16 @@ module Breach
       build_arity
     end
 
+    def validate_implementation(m)
+      self.input_arity.include?(m.arity)
+    end
+
     private
     def build_arity
       l = self.inputs.length
-      self.input_arity = (( self.inputs - [ :optional ] ).length...l)
+      self.input_arity = (( self.inputs - [ :optional ] ).length..l)
       l = self.returns.length
-      self.return_arity = (( self.returns - [ :optional ] ).length...l)
+      self.return_arity = (( self.returns - [ :optional ] ).length..l)
     end
 
   end
