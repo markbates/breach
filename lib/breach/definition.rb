@@ -1,6 +1,6 @@
 module Breach
   class Definition
-    attr_accessor :name, :inputs, :returns, :input_arity, :output_arity
+    attr_accessor :name, :inputs, :returns, :input_arity, :return_arity
 
     def initialize(name, options = {})
       self.name = name
@@ -8,7 +8,7 @@ module Breach
       self.returns = options[:returns] || []
 
       self.input_arity = self.inputs.length
-      self.output_arity = self.returns.length
+      self.return_arity = self.returns.length
     end
 
   end
