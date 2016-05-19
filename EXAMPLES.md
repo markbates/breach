@@ -1,18 +1,18 @@
 ```ruby
 module Writer
-  extend Interface
+  extend Breach::Interface
 
   defines :write, inputs: [String, [Hash, nil], :optional], returns: [Numberable]
 end
 
 module Reader
-  extend Interface
+  extend Breach::Interface
 
   defines :reader, inputs: [File], returns: [String]
 end
 
 module ReadWriter
-  extend Interface
+  extend Breach::Interface
   include Writer
   include Reader
 end
