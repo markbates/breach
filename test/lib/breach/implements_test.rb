@@ -12,7 +12,7 @@ describe "implements" do
       def write
       end
     end
-    is = MyWriter.instance_variable_get("@__implements__")
+    is = Breach::ImplementationManager.get(MyWriter)
     is.must_include Writer
   end
 

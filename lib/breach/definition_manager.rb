@@ -8,8 +8,8 @@ module Breach
       @definitions = {}
     end
 
-    def add(klass, *definitions)
-      get(klass).concat(definitions)
+    def add(klass, definitions)
+      get(klass).push(definitions)
     end
 
     def get(klass)
@@ -18,8 +18,8 @@ module Breach
 
     class << self
 
-      def add(klass, *definitions)
-        instance.add(klass, *definitions)
+      def add(klass, definitions)
+        instance.add(klass, definitions)
       end
 
       def get(klass)

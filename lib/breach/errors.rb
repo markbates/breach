@@ -6,4 +6,12 @@ module Breach
     end
   end
 
+  class TypeCheckedFailed < StandardError
+
+  end
+
+  class InputTypeCheckFailed < TypeCheckedFailed
+
+  end
+
 end

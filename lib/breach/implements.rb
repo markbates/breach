@@ -1,7 +1,7 @@
 class Object
 
-  def self.implements(interface)
-    ( @__implements__ ||= [] ).push(interface)
+  def self.implements(*interfaces)
+    Breach::ImplementationManager.add(self, *interfaces)
   end
 
 end
